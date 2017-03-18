@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<import resource="DataSource.xml" />
+	<import resource="Hibernate.xml" />
+	<import resource="setting-beans.xml" />
+
+	<bean id="personDao" class="by.vls.admin.dao.PersonDao">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+	
+	
+
+	<bean id="report" class="by.vls.admin.domain.tools.ToolReport">
+		<property name="personDao" ref="personDao" />
+	</bean>
+
+
+	<bean id="privateToolBox" class="by.vls.admin.view.ToolBox">
+		<property name="label" value="Физ.лица" />
+		<property name="link" value="private" />
+		<property name="tools">
+			<map>
+				<entry key="report" value-ref="report" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="aboutToolBox" class="by.vls.admin.view.ToolBox">
+		<property name="label" value="О проекте" />
+		<property name="link" value="about" />
+		<property name="tools">
+			<map>
+				<entry key="report" value-ref="report" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="settingsToolBox" class="by.vls.admin.view.ToolBox">
+		<property name="label" value="Настройки" />
+		<property name="link" value="settings" />
+		<property name="tools">
+			<map>
+				<entry key="report" value-ref="report" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="menu" class="by.vls.admin.view.Menu">
+		<property name="toolBoxes">
+			<set>
+				<ref bean="settingsToolBox" />
+				<ref bean="privateToolBox" />
+				<ref bean="aboutToolBox" />
+			</set>
+		</property>
+	</bean>
+
+</beans>

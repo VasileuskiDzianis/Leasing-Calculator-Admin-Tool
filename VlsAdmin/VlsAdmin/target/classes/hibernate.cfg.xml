@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="vlsadmin">
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.password">pilotpen</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/vls</property>
+		<property name="connection.characterEncoding">UTF-8</property>
+		<property name="hibernate.connection.username">dan</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">true</property>
+		<mapping class="by.vls.admin.domain.Address" />
+		<mapping class="by.vls.admin.domain.Person" />
+		<!-- Settings entities -->
+		<!-- Rate -->
+		<mapping class="by.vls.admin.domain.settings.rate.BaseRate" />
+		<mapping class="by.vls.admin.domain.settings.rate.ObjTypeMargin" />
+		<mapping class="by.vls.admin.domain.settings.rate.AgeMarginTruck" />
+		<mapping class="by.vls.admin.domain.settings.rate.AgeMarginRealestate" />
+		<mapping class="by.vls.admin.domain.settings.rate.AgeMarginCar" />
+		<mapping class="by.vls.admin.domain.settings.rate.AgeMarginLorry" />
+		<mapping class="by.vls.admin.domain.settings.rate.AgeMarginFarmmach" />
+		<mapping class="by.vls.admin.domain.settings.rate.AgeMarginEquip" />
+		<mapping class="by.vls.admin.domain.settings.rate.AgeMarginBuildmach" />
+		<!-- Insurance -->
+		<mapping class="by.vls.admin.domain.settings.insurance.InsureTypeBaseRate" />
+		<mapping class="by.vls.admin.domain.settings.insurance.AgeInsureTruck" />
+		<mapping class="by.vls.admin.domain.settings.insurance.AgeInsureRealestate" />
+		<mapping class="by.vls.admin.domain.settings.insurance.AgeInsureLorry" />
+		<mapping class="by.vls.admin.domain.settings.insurance.AgeInsureEquip" />
+		<mapping class="by.vls.admin.domain.settings.insurance.AgeInsureCar" />
+		<mapping class="by.vls.admin.domain.settings.insurance.AgeInsureBuildmach" />
+		<mapping class="by.vls.admin.domain.settings.insurance.AgeInsureFarmmach" />
+		
+	</session-factory>
+</hibernate-configuration>
