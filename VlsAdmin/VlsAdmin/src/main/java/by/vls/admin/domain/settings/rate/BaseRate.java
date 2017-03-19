@@ -11,9 +11,9 @@ public class BaseRate {
 	private int id;
 	private String currency;
 	private float rate;
-	
-	public BaseRate(){
-		
+
+	public BaseRate() {
+
 	}
 
 	public String getCurrency() {
@@ -36,9 +36,5 @@ public class BaseRate {
 	public String toString() {
 		return "BaseRate [id=" + id + ", currency=" + currency + ", rate=" + rate + "]";
 	}
-
-	
-	
-	
 
 }

@@ -14,6 +14,15 @@ public class AgeMarginCar {
 	private int age;
 	@Column(name = "margin_car")
 	private float marginCar;
+	
+	public AgeMarginCar(){
+		
+	}
+	public AgeMarginCar(int age, float marginCar){
+		this.age = age;
+		this.marginCar = marginCar;
+	}
+	
 	public int getId() {
 		return id;
 	}

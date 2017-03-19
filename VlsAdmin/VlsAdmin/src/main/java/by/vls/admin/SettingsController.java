@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -91,35 +93,30 @@ public class SettingsController {
 	}
 
 	@RequestMapping(value = "settings/savebaserate", method = RequestMethod.POST)
-	public String saveBaseRate (Locale locale, 
-			@RequestParam("usd") float usd, 
-			@RequestParam("eur") float eur, 
-			@RequestParam("byn") float byn, 
-			@RequestParam("rub") float rub, 
-			Model model)
-	{
+	public String saveBaseRate(Locale locale, @RequestParam("usd") float usd, @RequestParam("eur") float eur,
+			@RequestParam("byn") float byn, @RequestParam("rub") float rub, Model model) {
 		logger.info("saveBaseRate");
 		List<BaseRate> baseRateList = new ArrayList<BaseRate>();
 		BaseRate baseRateUsd = new BaseRate();
 		baseRateUsd.setCurrency("usd");
 		baseRateUsd.setRate(usd);
 		baseRateList.add(baseRateUsd);
-		
+
 		BaseRate baseRateEur = new BaseRate();
 		baseRateEur.setCurrency("eur");
 		baseRateEur.setRate(eur);
 		baseRateList.add(baseRateEur);
-		
+
 		BaseRate baseRateByn = new BaseRate();
 		baseRateByn.setCurrency("byn");
 		baseRateByn.setRate(byn);
 		baseRateList.add(baseRateByn);
-		
+
 		BaseRate baseRateRub = new BaseRate();
 		baseRateRub.setCurrency("rub");
 		baseRateRub.setRate(rub);
 		baseRateList.add(baseRateRub);
-		
+
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
 		BaseRateDao baseRateDao = (BaseRateDao) ctx.getBean("baseRateDao");
 		baseRateDao.updateBaseRate(baseRateList);
@@ -127,61 +124,142 @@ public class SettingsController {
 		return "redirect:../settings";
 
 	}
+
 	@RequestMapping(value = "settings/saveobjtypemargin", method = RequestMethod.POST)
-	public String saveObjTypeMargin (Locale locale, 
-			@RequestParam("buildingmachines") float buildingmachines, 
-			@RequestParam("car") float car, 
-			@RequestParam("equipment") float equipment, 
-			@RequestParam("farmingmachinery") float farmingmachinery, 
-			@RequestParam("lorry") float lorry, 
-			@RequestParam("realestate") float realestate, 
-			@RequestParam("truck") float truck, 
-			
-			Model model)
-	{
+	public String saveObjTypeMargin(Locale locale, @RequestParam("buildingmachines") float buildingmachines,
+			@RequestParam("car") float car, @RequestParam("equipment") float equipment,
+			@RequestParam("farmingmachinery") float farmingmachinery, @RequestParam("lorry") float lorry,
+			@RequestParam("realestate") float realestate, @RequestParam("truck") float truck,
+
+			Model model) {
 		logger.info("saveObjTypeMargin");
 		List<ObjTypeMargin> ObjTypeMarginList = new ArrayList<ObjTypeMargin>();
-		
+
 		ObjTypeMargin objTypeMarginBuildingmachines = new ObjTypeMargin();
 		objTypeMarginBuildingmachines.setObjType("buildingmachines");
 		objTypeMarginBuildingmachines.setObjTypeMargin(buildingmachines);
 		ObjTypeMarginList.add(objTypeMarginBuildingmachines);
-		
+
 		ObjTypeMargin objTypeMarginCar = new ObjTypeMargin();
 		objTypeMarginCar.setObjType("car");
 		objTypeMarginCar.setObjTypeMargin(car);
 		ObjTypeMarginList.add(objTypeMarginCar);
-		
+
 		ObjTypeMargin objTypeMarginEquipment = new ObjTypeMargin();
 		objTypeMarginEquipment.setObjType("equipment");
 		objTypeMarginEquipment.setObjTypeMargin(equipment);
 		ObjTypeMarginList.add(objTypeMarginEquipment);
-		
+
 		ObjTypeMargin objTypeMarginFarmingmachinery = new ObjTypeMargin();
 		objTypeMarginFarmingmachinery.setObjType("farmingmachinery");
 		objTypeMarginFarmingmachinery.setObjTypeMargin(farmingmachinery);
 		ObjTypeMarginList.add(objTypeMarginFarmingmachinery);
-		
+
 		ObjTypeMargin objTypeMarginLorry = new ObjTypeMargin();
 		objTypeMarginLorry.setObjType("lorry");
 		objTypeMarginLorry.setObjTypeMargin(lorry);
 		ObjTypeMarginList.add(objTypeMarginLorry);
-		
+
 		ObjTypeMargin objTypeMarginRealestate = new ObjTypeMargin();
 		objTypeMarginRealestate.setObjType("realestate");
 		objTypeMarginRealestate.setObjTypeMargin(realestate);
 		ObjTypeMarginList.add(objTypeMarginRealestate);
-		
+
 		ObjTypeMargin objTypeMarginTruck = new ObjTypeMargin();
 		objTypeMarginTruck.setObjType("truck");
 		objTypeMarginTruck.setObjTypeMargin(truck);
 		ObjTypeMarginList.add(objTypeMarginTruck);
-		
+
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
 		ObjTypeMarginDao objTypeMarginDao = (ObjTypeMarginDao) ctx.getBean("objTypeMarginDao");
 		objTypeMarginDao.updateObjTypeMargin(ObjTypeMarginList);
-		
+
 		return "redirect:../settings";
+
+	}
+
+	@RequestMapping(value = "settings/saveagemargin", method = RequestMethod.POST)
+	public String saveAgeMargin(Locale locale, Model model, HttpServletRequest request) {
+		logger.info("saveAgeMargin");
+
+		List<AgeMarginCar> ageMarginCarList = new ArrayList<AgeMarginCar>();
+		for (int i = 0; i <= 10; i++) {
+			if (request.getParameter("carage_" + i) != null) {
+				ageMarginCarList.add(new AgeMarginCar(i, Float.parseFloat(request.getParameter("carage_" + i))));
+			}
+		}
+
+		List<AgeMarginBuildmach> ageMarginBuildmachList = new ArrayList<AgeMarginBuildmach>();
+		for (int i = 0; i <= 10; i++) {
+			if (request.getParameter("buildmachage_" + i) != null) {
+				ageMarginBuildmachList
+						.add(new AgeMarginBuildmach(i, Float.parseFloat(request.getParameter("buildmachage_" + i))));
+			}
+		}
+
+		List<AgeMarginEquip> ageMarginEquipList = new ArrayList<AgeMarginEquip>();
+		for (int i = 0; i <= 10; i++) {
+			if (request.getParameter("equipage_" + i) != null) {
+				ageMarginEquipList.add(new AgeMarginEquip(i, Float.parseFloat(request.getParameter("equipage_" + i))));
+			}
+		}
+
+		List<AgeMarginFarmmach> ageMarginFarmmachList = new ArrayList<AgeMarginFarmmach>();
+		for (int i = 0; i <= 10; i++) {
+			if (request.getParameter("farmmachage_" + i) != null) {
+				ageMarginFarmmachList
+						.add(new AgeMarginFarmmach(i, Float.parseFloat(request.getParameter("farmmachage_" + i))));
+			}
+		}
+
+		List<AgeMarginLorry> ageMarginLorryList = new ArrayList<AgeMarginLorry>();
+		for (int i = 0; i <= 10; i++) {
+			if (request.getParameter("lorryage_" + i) != null) {
+				ageMarginLorryList.add(new AgeMarginLorry(i, Float.parseFloat(request.getParameter("lorryage_" + i))));
+			}
+		}
+
+		List<AgeMarginRealestate> ageMarginRealestateList = new ArrayList<AgeMarginRealestate>();
+		for (int i = 0; i <= 10; i++) {
+			if (request.getParameter("realestateage_" + i) != null) {
+				ageMarginRealestateList
+						.add(new AgeMarginRealestate(i, Float.parseFloat(request.getParameter("realestateage_" + i))));
+			}
+		}
+
+		List<AgeMarginTruck> ageMarginTruckList = new ArrayList<AgeMarginTruck>();
+		for (int i = 0; i <= 10; i++) {
+			if (request.getParameter("truckage_" + i) != null) {
+				ageMarginTruckList.add(new AgeMarginTruck(i, Float.parseFloat(request.getParameter("truckage_" + i))));
+			}
+		}
+
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
 		
+		AgeMarginBuildmachDao ageMarginBuildmachDao = (AgeMarginBuildmachDao) ctx.getBean("ageMarginBuildmachDao");
+		ageMarginBuildmachDao.updateAgeMargin(ageMarginBuildmachList);
+		
+		AgeMarginCarDao ageMarginCarDao = (AgeMarginCarDao) ctx.getBean("ageMarginCarDao");
+		ageMarginCarDao.updateAgeMargin(ageMarginCarList);
+		
+		AgeMarginEquipDao ageMarginEquipDao = (AgeMarginEquipDao) ctx.getBean("ageMarginEquipDao");
+		ageMarginEquipDao.updateAgeMargin(ageMarginEquipList);
+		
+		AgeMarginFarmmachDao ageMarginFarmmachDao = (AgeMarginFarmmachDao) ctx.getBean("ageMarginFarmmachDao");
+		ageMarginFarmmachDao.updateAgeMargin(ageMarginFarmmachList);
+		
+		AgeMarginLorryDao ageMarginLorryDao = (AgeMarginLorryDao) ctx.getBean("ageMarginLorryDao");
+		ageMarginLorryDao.updateAgeMargin(ageMarginLorryList);
+		
+		AgeMarginRealestateDao ageMarginRealestateDao = (AgeMarginRealestateDao) ctx.getBean("ageMarginRealestateDao");
+		ageMarginRealestateDao.updateAgeMargin(ageMarginRealestateList);
+		
+		AgeMarginTruckDao ageMarginTruckDao = (AgeMarginTruckDao) ctx.getBean("ageMarginTruckDao");
+		ageMarginTruckDao.updateAgeMargin(ageMarginTruckList);
+		
+		
+
+		return "redirect:../settings";
+
 	}
 }

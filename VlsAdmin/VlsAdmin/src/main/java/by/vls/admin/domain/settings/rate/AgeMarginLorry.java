@@ -14,29 +14,43 @@ public class AgeMarginLorry {
 	private int age;
 	@Column(name = "margin_lorry")
 	private float marginLorry;
+
+	public AgeMarginLorry() {
+	}
+
+	public AgeMarginLorry(int age, float marginLorry) {
+		super();
+		this.age = age;
+		this.marginLorry = marginLorry;
+	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	public float getMarginLorry() {
 		return marginLorry;
 	}
+
 	public void setMarginLorry(float marginLorry) {
 		this.marginLorry = marginLorry;
 	}
+
 	@Override
 	public String toString() {
 		return "AgeMarginLorry [id=" + id + ", age=" + age + ", marginLorry=" + marginLorry + "]";
 	}
-	
-	
-	
+
 }

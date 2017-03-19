@@ -15,6 +15,17 @@ public class AgeMarginBuildmach {
 	@Column(name = "margin_buildmach")
 	private float marginBuildmach;
 
+	public AgeMarginBuildmach() {
+	}
+
+	public AgeMarginBuildmach(int age, float marginBuildmach) {
+		super();
+		this.age = age;
+		this.marginBuildmach = marginBuildmach;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}

@@ -14,28 +14,43 @@ public class AgeMarginRealestate {
 	private int age;
 	@Column(name = "margin_realest")
 	private float marginRealest;
+
+	public AgeMarginRealestate() {
+	}
+
+	public AgeMarginRealestate(int age, float marginRealest) {
+		super();
+		this.age = age;
+		this.marginRealest = marginRealest;
+	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	public float getMarginRealest() {
 		return marginRealest;
 	}
+
 	public void setMarginRealest(float marginRealest) {
 		this.marginRealest = marginRealest;
 	}
+
 	@Override
 	public String toString() {
 		return "AgeMarginRealestate [id=" + id + ", age=" + age + ", marginRealest=" + marginRealest + "]";
 	}
-	
-	
+
 }

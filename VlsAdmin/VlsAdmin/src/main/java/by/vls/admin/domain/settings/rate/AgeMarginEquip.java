@@ -15,6 +15,15 @@ public class AgeMarginEquip {
 	@Column(name = "margin_equip")
 	private float marginEquip;
 
+	public AgeMarginEquip() {
+	}
+
+	public AgeMarginEquip(int age, float marginEquip) {
+		super();
+		this.age = age;
+		this.marginEquip = marginEquip;
+	}
+
 	public int getId() {
 		return id;
 	}

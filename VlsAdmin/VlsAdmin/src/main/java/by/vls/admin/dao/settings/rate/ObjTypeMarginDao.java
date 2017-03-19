@@ -4,7 +4,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import by.vls.admin.dao.CustomDao;
-import by.vls.admin.domain.settings.rate.BaseRate;
+import by.vls.admin.domain.settings.rate.AgeMarginBuildmach;
 import by.vls.admin.domain.settings.rate.ObjTypeMargin;
 
 public class ObjTypeMarginDao extends CustomDao{

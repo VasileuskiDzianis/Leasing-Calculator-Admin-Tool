@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import by.vls.admin.dao.CustomDao;
+import by.vls.admin.domain.settings.rate.AgeMarginEquip;
 import by.vls.admin.domain.settings.rate.AgeMarginLorry;
 
 public class AgeMarginLorryDao extends CustomDao{
@@ -17,6 +18,22 @@ public class AgeMarginLorryDao extends CustomDao{
 		session.close();
 	}
 	return objAgeMarginLorry;
+	}
+	
+	public void updateAgeMargin(List<AgeMarginLorry> ageMarginLorryList){
+		Session session = getSession();
+		session.beginTransaction();
+		for (AgeMarginLorry ageMarginLorry : ageMarginLorryList) {
+			session.createQuery("update AgeMarginLorry set margin_lorry = :rate where age = :age ")
+			.setParameter("rate", ageMarginLorry.getMarginLorry())
+			.setParameter("age", ageMarginLorry.getAge())
+			.executeUpdate();
+		}
+		
+		session.getTransaction().commit();
+		if (session != null && session.isOpen()) {
+			session.close();
+		}
 	}
 }
 

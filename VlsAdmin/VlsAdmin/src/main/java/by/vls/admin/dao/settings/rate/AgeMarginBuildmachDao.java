@@ -19,4 +19,19 @@ public class AgeMarginBuildmachDao extends CustomDao {
 		}
 		return objAgeMarginBuildmach;
 	}
+	public void updateAgeMargin(List<AgeMarginBuildmach> ageMarginBuildmachList){
+		Session session = getSession();
+		session.beginTransaction();
+		for (AgeMarginBuildmach ageMarginBuildmach : ageMarginBuildmachList) {
+			session.createQuery("update AgeMarginBuildmach set margin_buildmach = :rate where age = :age ")
+			.setParameter("rate", ageMarginBuildmach.getMarginBuildmach())
+			.setParameter("age", ageMarginBuildmach.getAge())
+			.executeUpdate();
+		}
+		
+		session.getTransaction().commit();
+		if (session != null && session.isOpen()) {
+			session.close();
+		}
+	}
 }

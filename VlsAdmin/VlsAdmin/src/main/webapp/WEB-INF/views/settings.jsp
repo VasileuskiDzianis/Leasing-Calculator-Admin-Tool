@@ -46,7 +46,7 @@
 	</table>
 </form>
 <h2>Настройка маржи по возрасту предметов</h2>
-<form action="settings/agemargin" method="POST">
+<form action="settings/saveagemargin" method="POST">
 	<table>
 		<tr>
 			<th>Тип\Возраст</th>

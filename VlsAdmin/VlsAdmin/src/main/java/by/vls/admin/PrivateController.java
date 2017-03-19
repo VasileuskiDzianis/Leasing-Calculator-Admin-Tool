@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import by.vls.admin.dao.HibernateUtil;
 import by.vls.admin.dao.PersonDao;
 import by.vls.admin.domain.Person;
-import by.vls.admin.domain.settings.rate.BaseRate;
+import by.vls.admin.domain.settings.rate.AgeMarginBuilmach;
 import by.vls.admin.view.Menu;
 
 @Controller

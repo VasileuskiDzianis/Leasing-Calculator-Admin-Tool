@@ -14,30 +14,43 @@ public class AgeMarginTruck {
 	private int age;
 	@Column(name = "margin_truck")
 	private float marginTruck;
+
+	public AgeMarginTruck() {
+	}
+
+	public AgeMarginTruck(int age, float marginTruck) {
+		super();
+		this.age = age;
+		this.marginTruck = marginTruck;
+	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	public float getMarginTruck() {
 		return marginTruck;
 	}
+
 	public void setMarginTruck(float marginTruck) {
 		this.marginTruck = marginTruck;
 	}
+
 	@Override
 	public String toString() {
 		return "AgeMarginTruck [id=" + id + ", age=" + age + ", marginTruck=" + marginTruck + "]";
 	}
-	
-	
 
-	
 }
