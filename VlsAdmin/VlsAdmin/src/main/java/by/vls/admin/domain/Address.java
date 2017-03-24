@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
-public class Address implements Serializable{
+public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int addressId;
 	private int postalCode;
@@ -22,7 +22,6 @@ public class Address implements Serializable{
 	private String street;
 	private String building;
 	private String room;
-
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -100,9 +99,23 @@ public class Address implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Address [addressId=" + addressId + ", postalCode=" + postalCode + ", province=" + province
-				+ ", district=" + district + ", city=" + city + ", street=" + street + ", building=" + building
-				+ ", room=" + room + "]";
+		StringBuffer printadr = new StringBuffer();
+		if (postalCode != 0) {
+			printadr.append(postalCode).append(", ");
+		}
+		if (province != null)
+			printadr.append("обл. ").append(province).append(", ");
+		if (district != null)
+			printadr.append("р-н ").append(district).append(", ");
+		if (city != null)
+			printadr.append(city).append(", ");
+		if (street != null)
+			printadr.append(street).append(", ");
+		if (building != null)
+			printadr.append(building).append(", ");
+		if (room != null)
+			printadr.append(room);
+		return printadr.toString();
 	}
 
 }
