@@ -12,6 +12,16 @@ public class ObjTypeMargin {
 	private int id;
 	private String objType;
 	private float objTypeMargin;
+	
+	
+
+	public ObjTypeMargin(String objType, float objTypeMargin) {
+		this.objType = objType;
+		this.objTypeMargin = objTypeMargin;
+	}
+	public ObjTypeMargin() {
+	}
+	
 
 	public int getId() {
 		return id;

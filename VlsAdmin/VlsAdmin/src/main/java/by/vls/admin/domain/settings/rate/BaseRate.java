@@ -15,6 +15,11 @@ public class BaseRate {
 	public BaseRate() {
 
 	}
+	
+	public BaseRate(String currency, float rate){
+		this.currency = currency;
+		this.rate = rate;
+	}
 
 	public String getCurrency() {
 		return currency;

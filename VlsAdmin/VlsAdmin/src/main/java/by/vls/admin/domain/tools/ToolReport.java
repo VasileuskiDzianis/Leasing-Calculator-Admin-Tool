@@ -3,11 +3,14 @@ package by.vls.admin.domain.tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import by.vls.admin.dao.DaoException;
 import by.vls.admin.dao.PersonDao;
 import by.vls.admin.domain.Person;
 
 public class ToolReport implements Tool {
-
+	final static Logger logger = Logger.getLogger(ToolReport.class);
 	@Override
 	public void takeTool() {
 		// TODO Auto-generated method stub
@@ -17,12 +20,7 @@ public class ToolReport implements Tool {
 
 	@Override
 	public void useTool() {
-		// TODO Auto-generated method stub
-		List<Person> persons = getPersonsWithHigherIncome(500);
-		for (Person person : persons) {
-			System.out.println(person);
-		}
-		
+				
 	}
 
 	private PersonDao personDao;
@@ -35,9 +33,15 @@ public class ToolReport implements Tool {
 		this.personDao = personDao;
 	}
 
-	public List<Person> getPersonsWithHigherIncome(int income) {
+	public List<Person> getPersonsWithHigherIncome(int income) throws DaoException{
 
-		List<Person> persons = personDao.getPersonsWithHigherIncome(income);
+		List<Person> persons;
+		
+		try {
+			persons = personDao.getPersonsWithHigherIncome(income);
+		} catch (DaoException e) {
+			throw new DaoException("Getting person from DB error", e);
+		}
 
 		return persons;
 	}

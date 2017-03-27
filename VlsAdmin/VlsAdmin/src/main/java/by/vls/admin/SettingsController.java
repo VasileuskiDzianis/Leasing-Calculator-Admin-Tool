@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import by.vls.admin.dao.DaoException;
 import by.vls.admin.dao.settings.rate.*;
 import by.vls.admin.domain.settings.rate.*;
 import by.vls.admin.view.Menu;
@@ -26,8 +27,8 @@ public class SettingsController {
 	private static final Logger logger = LoggerFactory.getLogger(SettingsController.class);
 
 	@RequestMapping(value = "settings", method = RequestMethod.GET)
-	public String showSettings(Locale locale, Model model) {
-		logger.info("Welcome to Settings! The client locale is {}.", locale);
+	public String showSettings(Model model) {
+		logger.warn("Setting form showed");
 
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
 
@@ -37,55 +38,124 @@ public class SettingsController {
 
 		BaseRateDao baseRateDao = (BaseRateDao) ctx.getBean("baseRateDao");
 
-		List<BaseRate> baseRateList = baseRateDao.getBaseRate();
+		List<BaseRate> baseRateList;
+		
+		try {
+			baseRateList = baseRateDao.getBaseRate();
+		} catch (DaoException e) {
+			logger.error("Base rate getting error", e);
+			baseRateList = new ArrayList();
+			baseRateList.add(new BaseRate("error",0));
+			
+		}
 
 		model.addAttribute("baseRateList", baseRateList);
 
 		ObjTypeMarginDao objTypeMarginDao = (ObjTypeMarginDao) ctx.getBean("objTypeMarginDao");
 
-		List<ObjTypeMargin> objTypeMarginList = objTypeMarginDao.getObjTypeMargin();
+		List<ObjTypeMargin> objTypeMarginList;
+		try {
+			objTypeMarginList = objTypeMarginDao.getObjTypeMargin();
+		} catch (DaoException e) {
+			logger.error("Object type margin getting error", e);
+			objTypeMarginList = new ArrayList();
+			objTypeMarginList.add(new ObjTypeMargin("error",0));
+			
+		}
 
 		model.addAttribute("objTypeMarginList", objTypeMarginList);
 
 		AgeMarginTruckDao ageMarginTruckDao = (AgeMarginTruckDao) ctx.getBean("ageMarginTruckDao");
 
-		List<AgeMarginTruck> ageMarginTruckList = ageMarginTruckDao.getAgeMargin();
+		List<AgeMarginTruck> ageMarginTruckList;
+		
+		try {
+			ageMarginTruckList = ageMarginTruckDao.getAgeMargin();
+		} catch (DaoException e) {
+			logger.error("Age margin truck getting error", e);
+			ageMarginTruckList = new ArrayList();
+			ageMarginTruckList.add(new AgeMarginTruck(0,0));
+		}
 
 		model.addAttribute("ageMarginTruckList", ageMarginTruckList);
 
 		AgeMarginCarDao ageMarginCarDao = (AgeMarginCarDao) ctx.getBean("ageMarginCarDao");
 
-		List<AgeMarginCar> ageMarginCarList = ageMarginCarDao.getAgeMargin();
+		List<AgeMarginCar> ageMarginCarList;
+		
+		try {
+			ageMarginCarList = ageMarginCarDao.getAgeMargin();
+		} catch (DaoException e) {
+			logger.error("Age margin car getting error", e);
+			ageMarginCarList = new ArrayList();
+			ageMarginCarList.add(new AgeMarginCar(0,0));
+		}
 
 		model.addAttribute("ageMarginCarList", ageMarginCarList);
 
 		AgeMarginLorryDao ageMarginLorryDao = (AgeMarginLorryDao) ctx.getBean("ageMarginLorryDao");
 
-		List<AgeMarginLorry> ageMarginLorryList = ageMarginLorryDao.getAgeMargin();
+		List<AgeMarginLorry> ageMarginLorryList;
+		
+		try {
+			ageMarginLorryList = ageMarginLorryDao.getAgeMargin();
+		} catch (DaoException e) {
+			logger.error("Age margin lorry getting error", e);
+			ageMarginLorryList = new ArrayList();
+			ageMarginLorryList.add(new AgeMarginLorry(0,0));
+		}
 
 		model.addAttribute("ageMarginLorryList", ageMarginLorryList);
 
 		AgeMarginFarmmachDao ageMarginFarmmachDao = (AgeMarginFarmmachDao) ctx.getBean("ageMarginFarmmachDao");
 
-		List<AgeMarginFarmmach> ageMarginFarmmachList = ageMarginFarmmachDao.getAgeMargin();
+		List<AgeMarginFarmmach> ageMarginFarmmachList;
+		try {
+			ageMarginFarmmachList = ageMarginFarmmachDao.getAgeMargin();
+		} catch (DaoException e) {
+			logger.error("Age margin farming machinery getting error", e);
+			ageMarginFarmmachList = new ArrayList();
+			ageMarginFarmmachList.add(new AgeMarginFarmmach(0,0));
+		}
 
 		model.addAttribute("ageMarginFarmmachList", ageMarginFarmmachList);
 
 		AgeMarginRealestateDao ageMarginRealestateDao = (AgeMarginRealestateDao) ctx.getBean("ageMarginRealestateDao");
 
-		List<AgeMarginRealestate> ageMarginRealestateList = ageMarginRealestateDao.getAgeMargin();
+		List<AgeMarginRealestate> ageMarginRealestateList;
+		try {
+			ageMarginRealestateList = ageMarginRealestateDao.getAgeMargin();
+		} catch (DaoException e) {
+			logger.error("Age margin realestate getting error", e);
+			ageMarginRealestateList = new ArrayList();
+			ageMarginRealestateList.add(new AgeMarginRealestate(0,0));
+		}
 
 		model.addAttribute("ageMarginRealestateList", ageMarginRealestateList);
 
 		AgeMarginEquipDao ageMarginEquipDao = (AgeMarginEquipDao) ctx.getBean("ageMarginEquipDao");
 
-		List<AgeMarginEquip> ageMarginEquipList = ageMarginEquipDao.getAgeMargin();
+		List<AgeMarginEquip> ageMarginEquipList;
+		try {
+			ageMarginEquipList = ageMarginEquipDao.getAgeMargin();
+		} catch (DaoException e) {
+			logger.error("Age margin equipment getting error", e);
+			ageMarginEquipList = new ArrayList();
+			ageMarginEquipList.add(new AgeMarginEquip(0,0));
+		}
 
 		model.addAttribute("ageMarginEquipList", ageMarginEquipList);
 
 		AgeMarginBuildmachDao ageMarginBuildmachDao = (AgeMarginBuildmachDao) ctx.getBean("ageMarginBuildmachDao");
 
-		List<AgeMarginBuildmach> ageMarginBuildmachList = ageMarginBuildmachDao.getAgeMargin();
+		List<AgeMarginBuildmach> ageMarginBuildmachList;
+		try {
+			ageMarginBuildmachList = ageMarginBuildmachDao.getAgeMargin();
+		} catch (DaoException e) {
+			logger.error("Age margin Building machines getting error", e);
+			ageMarginBuildmachList = new ArrayList();
+			ageMarginBuildmachList.add(new AgeMarginBuildmach(0,0));
+		}
 
 		model.addAttribute("ageMarginBuildmachList", ageMarginBuildmachList);
 
@@ -93,9 +163,9 @@ public class SettingsController {
 	}
 
 	@RequestMapping(value = "settings/savebaserate", method = RequestMethod.POST)
-	public String saveBaseRate(Locale locale, @RequestParam("usd") float usd, @RequestParam("eur") float eur,
+	public String saveBaseRate(@RequestParam("usd") float usd, @RequestParam("eur") float eur,
 			@RequestParam("byn") float byn, @RequestParam("rub") float rub, Model model) {
-		logger.info("saveBaseRate");
+		logger.warn("saveBaseRate");
 		List<BaseRate> baseRateList = new ArrayList<BaseRate>();
 		BaseRate baseRateUsd = new BaseRate();
 		baseRateUsd.setCurrency("usd");
@@ -119,7 +189,11 @@ public class SettingsController {
 
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
 		BaseRateDao baseRateDao = (BaseRateDao) ctx.getBean("baseRateDao");
-		baseRateDao.updateBaseRate(baseRateList);
+		try {
+			baseRateDao.updateBaseRate(baseRateList);
+		} catch (DaoException e) {
+			logger.error("Update base rate error", e);
+		}
 
 		return "redirect:../settings";
 
@@ -172,7 +246,11 @@ public class SettingsController {
 
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
 		ObjTypeMarginDao objTypeMarginDao = (ObjTypeMarginDao) ctx.getBean("objTypeMarginDao");
-		objTypeMarginDao.updateObjTypeMargin(ObjTypeMarginList);
+		try {
+			objTypeMarginDao.updateObjTypeMargin(ObjTypeMarginList);
+		} catch (DaoException e) {
+			logger.error("Update object type margin error", e);
+		}
 
 		return "redirect:../settings";
 
@@ -237,25 +315,25 @@ public class SettingsController {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-beans.xml");
 		
 		AgeMarginBuildmachDao ageMarginBuildmachDao = (AgeMarginBuildmachDao) ctx.getBean("ageMarginBuildmachDao");
-		ageMarginBuildmachDao.updateAgeMargin(ageMarginBuildmachList);
-		
 		AgeMarginCarDao ageMarginCarDao = (AgeMarginCarDao) ctx.getBean("ageMarginCarDao");
-		ageMarginCarDao.updateAgeMargin(ageMarginCarList);
-		
 		AgeMarginEquipDao ageMarginEquipDao = (AgeMarginEquipDao) ctx.getBean("ageMarginEquipDao");
-		ageMarginEquipDao.updateAgeMargin(ageMarginEquipList);
-		
 		AgeMarginFarmmachDao ageMarginFarmmachDao = (AgeMarginFarmmachDao) ctx.getBean("ageMarginFarmmachDao");
-		ageMarginFarmmachDao.updateAgeMargin(ageMarginFarmmachList);
-		
 		AgeMarginLorryDao ageMarginLorryDao = (AgeMarginLorryDao) ctx.getBean("ageMarginLorryDao");
-		ageMarginLorryDao.updateAgeMargin(ageMarginLorryList);
-		
 		AgeMarginRealestateDao ageMarginRealestateDao = (AgeMarginRealestateDao) ctx.getBean("ageMarginRealestateDao");
-		ageMarginRealestateDao.updateAgeMargin(ageMarginRealestateList);
-		
 		AgeMarginTruckDao ageMarginTruckDao = (AgeMarginTruckDao) ctx.getBean("ageMarginTruckDao");
-		ageMarginTruckDao.updateAgeMargin(ageMarginTruckList);
+		
+		try {
+			ageMarginBuildmachDao.updateAgeMargin(ageMarginBuildmachList);
+			ageMarginCarDao.updateAgeMargin(ageMarginCarList);
+			ageMarginEquipDao.updateAgeMargin(ageMarginEquipList);
+			ageMarginFarmmachDao.updateAgeMargin(ageMarginFarmmachList);
+			ageMarginLorryDao.updateAgeMargin(ageMarginLorryList);
+			ageMarginRealestateDao.updateAgeMargin(ageMarginRealestateList);
+			ageMarginTruckDao.updateAgeMargin(ageMarginTruckList);
+		} catch (DaoException e) {
+			logger.error("Error updating Age margin for objects", e);
+		}
+		
 		
 		
 

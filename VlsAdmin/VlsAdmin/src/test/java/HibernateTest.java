@@ -15,24 +15,6 @@ public class HibernateTest {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		session.beginTransaction();
-		/*
-		 * Address address = new Address(); address.setPostalCode(220090);
-		 * address.setProvince("Минская"); address.setDistrict("Минская");
-		 * address.setCity("Минск"); address.setStreet("Калиновского");
-		 * address.setBuilding("48"); address.setRoom("97");
-		 */
-
-		// Person personAdd = new Person();
-		/*
-		 * personAdd.setGender("муж"); personAdd.setFirstName("Михаил");
-		 * personAdd.setLastName("Василевский");
-		 * personAdd.setPatronymicName("Владимирович");
-		 * personAdd.setBirthDate(LocalDate.parse("1957-12-05"));
-		 * personAdd.setPhoneNumber("375291234567");
-		 * personAdd.setEmployer("Пеленг"); personAdd.setPosition("Слесарь");
-		 * personAdd.setMonthlyIncome(5000); personAdd.setSegment(3);
-		 * personAdd.setAddress(address);
-		 */
 
 		Person person = new Person();
 		person.setId(42);
